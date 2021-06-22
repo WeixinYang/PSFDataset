@@ -47,7 +47,6 @@ class Signature:
 
     def __call__(self, sample: np.ndarray) -> np.ndarray:
         signatures = []
-        print('ESig backend2: ',esig.get_backend())
         for frame in range(sample.shape[0]):
             signatures_frame = []
             for tup in range(sample.shape[1]):
