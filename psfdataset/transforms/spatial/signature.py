@@ -7,7 +7,8 @@
 # email kevinschlegel@cantab.net
 # -----------------------------------------------------------
 import numpy as np
-from esig import tosig
+import esig
+#from esig import tosig
 
 from ...types import DescriptionDict
 
@@ -39,15 +40,18 @@ class Signature:
             whether or not to drop the zeroth term of the signature (which is
             always equal to 1)
         """
+        esig.set_backend("iisignature")
+        print('ESig backend: ',esig.ger_backend())
         self._signature_level = signature_level
         self._drop_zeroth_term = drop_zeroth_term
 
     def __call__(self, sample: np.ndarray) -> np.ndarray:
         signatures = []
+        print('ESig backend2: ',esig.ger_backend())
         for frame in range(sample.shape[0]):
             signatures_frame = []
             for tup in range(sample.shape[1]):
-                signature = tosig.stream2sig(
+                signature = esig.stream2sig(
                     sample[frame][tup].astype(np.float64),
                     self._signature_level)
                 signatures_frame.append(signature[self._drop_zeroth_term:])

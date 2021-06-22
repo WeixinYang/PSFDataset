@@ -2,7 +2,7 @@
 # Class to create and handle Path-Signature-Feature Datasets.
 #
 # (C) 2020 Kevin Schlegel, Oxford, United Kingdom
-# Released under Apache License, Version 2.0
+# Released under Apache License, Version 2.0.
 # email kevinschlegel@cantab.net
 # -----------------------------------------------------------
 import numpy as np
@@ -13,7 +13,6 @@ from typing import List, Optional, Iterator, Union, Tuple
 from .types import KeypointLabelPair, DescriptionDict, KeypointTransformation
 
 from .psfdatasubset import PSFDataSubset
-
 
 class PSFDataset:
     """
