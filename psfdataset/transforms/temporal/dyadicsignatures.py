@@ -9,7 +9,8 @@
 from typing import List
 
 import numpy as np
-from esig import tosig
+import esig
+#from esig import tosig
 
 from ...types import DescriptionDict
 
@@ -44,6 +45,8 @@ class DyadicPathSignatures:
         overlapping: bool, optional (default is False)
             Whether to take the dyadic intervals half overlapping each other
         """
+        esig.set_backend("iisignature")
+        print('ESig backend: ',esig.ger_backend())
         self._dyadic_levels = dyadic_levels
         self._signature_level = signature_level
         self._overlapping = overlapping
@@ -52,6 +55,7 @@ class DyadicPathSignatures:
         dyadic_pieces: List[List[np.ndarray]] = [
             [] for i in range(sample.shape[0])
         ]
+        print('ESig backend1: ',esig.ger_backend())
         for dyadic_level in range(self._dyadic_levels + 1):
             if self._overlapping:
                 num_pieces = 2**(dyadic_level + 1) - 1
@@ -72,7 +76,7 @@ class DyadicPathSignatures:
                     start_frame = int(start_frame)
                     end_frame = int(end_frame)
                     dyadic_pieces[i] += [
-                        tosig.stream2sig(
+                        esig.stream2sig(
                             sample[i][start_frame:end_frame].reshape(
                                 end_frame - start_frame,
                                 -1).astype(np.float64), self._signature_level)
