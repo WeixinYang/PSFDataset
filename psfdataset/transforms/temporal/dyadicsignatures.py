@@ -55,7 +55,6 @@ class DyadicPathSignatures:
         dyadic_pieces: List[List[np.ndarray]] = [
             [] for i in range(sample.shape[0])
         ]
-        print('ESig backend1: ',esig.get_backend())
         for dyadic_level in range(self._dyadic_levels + 1):
             if self._overlapping:
                 num_pieces = 2**(dyadic_level + 1) - 1
