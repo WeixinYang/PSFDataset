@@ -46,7 +46,7 @@ class DyadicPathSignatures:
             Whether to take the dyadic intervals half overlapping each other
         """
         esig.set_backend("iisignature")
-        print('ESig backend: ',esig.ger_backend())
+        print('ESig backend: ',esig.get_backend())
         self._dyadic_levels = dyadic_levels
         self._signature_level = signature_level
         self._overlapping = overlapping
@@ -55,7 +55,7 @@ class DyadicPathSignatures:
         dyadic_pieces: List[List[np.ndarray]] = [
             [] for i in range(sample.shape[0])
         ]
-        print('ESig backend1: ',esig.ger_backend())
+        print('ESig backend1: ',esig.get_backend())
         for dyadic_level in range(self._dyadic_levels + 1):
             if self._overlapping:
                 num_pieces = 2**(dyadic_level + 1) - 1
