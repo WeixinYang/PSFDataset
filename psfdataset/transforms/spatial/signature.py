@@ -41,13 +41,13 @@ class Signature:
             always equal to 1)
         """
         esig.set_backend("iisignature")
-        print('ESig backend: ',esig.ger_backend())
+        print('ESig backend: ',esig.get_backend())
         self._signature_level = signature_level
         self._drop_zeroth_term = drop_zeroth_term
 
     def __call__(self, sample: np.ndarray) -> np.ndarray:
         signatures = []
-        print('ESig backend2: ',esig.ger_backend())
+        print('ESig backend2: ',esig.get_backend())
         for frame in range(sample.shape[0]):
             signatures_frame = []
             for tup in range(sample.shape[1]):
