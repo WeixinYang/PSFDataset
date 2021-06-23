@@ -14,6 +14,8 @@ from .types import KeypointLabelPair, DescriptionDict, KeypointTransformation
 
 from .psfdatasubset import PSFDataSubset
 
+from joblib import Parallel, delayed
+
 class PSFDataset:
     """
     A class to create and handle Path-Signature-Feature Datasets.
@@ -126,10 +128,14 @@ class PSFDataset:
         label: int
             Ground truth classification label
         """
-        if self._transform is not None:
+        if self._transform is not None: 
             keypoints = self._transform(keypoints)
         self._data.append(keypoints.astype(self._dtype))
         self._labels.append(label)
+
+    def parallel_psf_tansform(self, input_data: np.ndarray, input_label: np.ndarray):
+        self._data = Parallel(n_jobs=-1)(delayed(self._transform)(sample) for sample in tqdm(input_data))
+        self._labels = list(input_label)
 
     def set_split(self, description: DescriptionDict, train_ids: List[int],
                   test_ids: List[int]):
