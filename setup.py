@@ -13,7 +13,8 @@ setup(
     install_requires=[
         'numpy>=1.18.5',
         'tqdm>=4.46.1',
-        'esig==0.7.1',
+        'esig',
+        'joblib',
     ],
     extras_require={
         ':python_version < "3.8"': [
