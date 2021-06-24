@@ -133,11 +133,11 @@ class PSFDataset:
         self._data.append(keypoints.astype(self._dtype))
         self._labels.append(label)
 
-    def parallel_psf_tansform(self, input_data: np.ndarray, input_label: np.ndarray, input_length: np.ndarray = None):
+    def parallel_psf_tansform(self, input_data: np.ndarray, input_label: np.ndarray, input_length: np.ndarray = None, n_threads: int = -1):
         if input_length is not None:
-            self._data = Parallel(n_jobs=-1)(delayed(self._transform)(sample[:input_length[i]]) for i,sample in enumerate(tqdm(input_data)))
+            self._data = Parallel(n_jobs=n_threads)(delayed(self._transform)(sample[:input_length[i]]) for i,sample in enumerate(tqdm(input_data)))
         else:
-            self._data = Parallel(n_jobs=-1)(delayed(self._transform)(sample) for sample in tqdm(input_data))
+            self._data = Parallel(n_jobs=n_threads)(delayed(self._transform)(sample) for sample in tqdm(input_data))
         self._labels = list(input_label)
 
     def set_split(self, description: DescriptionDict, train_ids: List[int],
